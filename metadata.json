@@ -1,0 +1,143 @@
+{
+  "model_name": "Sales Dashboard",
+
+  "description": "Sales Analysis Data Model",
+
+  "tables": [
+
+    {
+      "table_name": "Sales",
+
+      "description": "Contains all sales transactions.",
+
+      "type": "Fact",
+
+      "columns": [
+
+        {
+          "name": "Sales Amount",
+          "data_type": "Decimal",
+          "role": "Measure Value"
+        },
+
+        {
+          "name": "Profit",
+          "data_type": "Decimal",
+          "role": "Measure Value"
+        },
+
+        {
+          "name": "Quantity",
+          "data_type": "Whole Number",
+          "role": "Numeric"
+        },
+
+        {
+          "name": "Order Date",
+          "data_type": "Date",
+          "role": "Date"
+        },
+
+        {
+          "name": "Customer ID",
+          "data_type": "Text",
+          "role": "Foreign Key"
+        }
+
+      ]
+    },
+
+    {
+      "table_name": "Customer",
+
+      "description": "Customer Master Data",
+
+      "type": "Dimension",
+
+      "columns": [
+
+        {
+          "name": "Customer ID",
+          "data_type": "Text",
+          "role": "Primary Key"
+        },
+
+        {
+          "name": "Customer Name",
+          "data_type": "Text",
+          "role": "Dimension"
+        },
+
+        {
+          "name": "City",
+          "data_type": "Text",
+          "role": "Dimension"
+        },
+
+        {
+          "name": "State",
+          "data_type": "Text",
+          "role": "Dimension"
+        }
+
+      ]
+    },
+
+    {
+      "table_name": "Date",
+
+      "description": "Calendar Table",
+
+      "type": "Dimension",
+
+      "columns": [
+
+        {
+          "name": "Date",
+          "data_type": "Date",
+          "role": "Primary Date"
+        },
+
+        {
+          "name": "Year",
+          "data_type": "Whole Number",
+          "role": "Time"
+        },
+
+        {
+          "name": "Month",
+          "data_type": "Text",
+          "role": "Time"
+        }
+
+      ]
+    }
+
+  ],
+
+  "relationships": [
+
+    {
+      "from_table": "Sales",
+      "from_column": "Customer ID",
+
+      "to_table": "Customer",
+      "to_column": "Customer ID",
+
+      "cardinality": "Many-to-One",
+
+      "cross_filter_direction": "Single"
+    }
+
+  ],
+
+  "measures": [
+
+    {
+      "name": "Total Sales",
+      "table": "Sales",
+      "description": "Total Sales Amount"
+    }
+
+  ]
+}
